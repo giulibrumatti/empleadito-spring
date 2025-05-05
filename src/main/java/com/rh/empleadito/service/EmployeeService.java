@@ -5,18 +5,18 @@ import com.rh.empleadito.repository.IEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class EmployeeServicio implements IEmployeeService{
+public class EmployeeService implements IEmployeeService{
 
     @Autowired
     private IEmployeeRepository empRepository;
 
     @Override
     public List<Employee> listEmployees() {
-        return empRepository.findAll();
+        List<Employee> listExit = empRepository.findAll();
+        return listExit;
     }
 
     @Override

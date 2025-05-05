@@ -1,17 +1,14 @@
 package com.rh.empleadito.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Table(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +17,13 @@ public class Employee {
     private String departament;
     private Double salary;
 
-
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", departament='" + departament + '\'' +
+                ", salary=" + salary +
+                '}';
+    }
 }
