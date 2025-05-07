@@ -5,16 +5,13 @@ import com.rh.empleadito.service.IEmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("empleadito-app")
-@CrossOrigin(value = "http://localhost:3000")
+@CrossOrigin(value = "http://localhost:5173")
 public class EmployeeController {
     private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
@@ -25,7 +22,12 @@ public class EmployeeController {
     public List<Employee> getEmployees(){
         List<Employee> listEmployees = empServ.listEmployees();
         listEmployees.forEach((employee -> logger.info(employee.toString())));
-        listEmployees.forEach(System.out::println);
         return listEmployees;
+    }
+
+    @PostMapping("/crearEmpleado")
+    public String crearDuenio(@RequestBody Employee emp){
+        empServ.addEmployee(emp);
+        return "El empleado ingresado se creo correctamente";
     }
 }
