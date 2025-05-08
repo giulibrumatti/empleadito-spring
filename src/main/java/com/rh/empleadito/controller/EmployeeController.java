@@ -26,8 +26,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/crearEmpleado")
-    public String crearDuenio(@RequestBody Employee emp){
-        empServ.addEmployee(emp);
-        return "El empleado ingresado se creo correctamente";
+    public Employee crearDuenio(@RequestBody Employee emp){
+        logger.info("Empleado a agregar: " + emp);
+        return empServ.addEmployee(emp);
     }
 }
