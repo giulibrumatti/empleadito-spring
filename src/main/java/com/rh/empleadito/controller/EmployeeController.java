@@ -33,12 +33,26 @@ public class EmployeeController {
         return empServ.addEmployee(emp);
     }
 
-    @GetMapping("/buscarEmpleado/{id}")
+    @GetMapping("/empleados/{id}")
     public ResponseEntity<Employee> searchForId(@PathVariable Long id){
         Employee emp = empServ.searchForEmployeeForId(id);
         if(emp == null)
             throw new ResourceNotFoundException("No se encontre el ID: "+ id);
 
         return ResponseEntity.ok(emp);
+    }
+
+    @PutMapping("/empleados/{id}")
+    public ResponseEntity<Employee> editEmployee(@PathVariable Long id,
+                                               @RequestBody Employee empReceived){
+        Employee employee = empServ.searchForEmployeeForId(id);
+        if(employee == null){
+            throw new ResourceNotFoundException("El id recibido no existe: " + id);
+        }
+        employee.setName(empReceived.getName());
+        employee.setDepartament(empReceived.getDepartament());
+        employee.setSalary(empReceived.getSalary());
+        empServ.addEmployee(employee);
+        return ResponseEntity.ok(employee);
     }
 }
