@@ -1,6 +1,7 @@
 package com.rh.empleadito.controller;
 
-import com.rh.empleadito.exception.ResourceNotFoundException;
+import
+        com.rh.empleadito.exception.ResourceNotFoundException;
 import com.rh.empleadito.model.Employee;
 import com.rh.empleadito.service.IEmployeeService;
 import org.slf4j.Logger;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("empleadito-app")
@@ -54,5 +57,17 @@ public class EmployeeController {
         employee.setSalary(empReceived.getSalary());
         empServ.addEmployee(employee);
         return ResponseEntity.ok(employee);
+    }
+
+    @DeleteMapping("/empleados/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id){
+        Employee emp = empServ.searchForEmployeeForId(id);
+        if(emp == null){
+            throw new ResourceNotFoundException("El id recibido no existe: " + id);
+        }
+        empServ.deleteEmployee(emp);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("eliminado", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }
