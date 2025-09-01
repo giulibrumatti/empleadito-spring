@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("empleadito-app")
-@CrossOrigin(value = "http://localhost:3000")
+@RequestMapping("/empleadito-app")
+@CrossOrigin(origins = "${frontend.url}")
 public class EmployeeController {
     private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
